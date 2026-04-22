@@ -1,0 +1,38 @@
+Index: hostapd-2026.03.23~3f9b7ae0/hostapd/hostapd.conf
+===================================================================
+--- hostapd-2026.03.23~3f9b7ae0.orig/hostapd/hostapd.conf
++++ hostapd-2026.03.23~3f9b7ae0/hostapd/hostapd.conf
+@@ -817,6 +817,7 @@ wmm_ac_vo_acm=0
+ # 1 = 80 MHz channel width
+ # 2 = 160 MHz channel width
+ # 3 = 80+80 MHz channel width
++# 4 = 320 MHz channel width
+ #vht_oper_chwidth=1
+ #
+ # center freq = 5 GHz + (5 * index)
+Index: hostapd-2026.03.23~3f9b7ae0/src/common/defs.h
+===================================================================
+--- hostapd-2026.03.23~3f9b7ae0.orig/src/common/defs.h
++++ hostapd-2026.03.23~3f9b7ae0/src/common/defs.h
+@@ -481,19 +481,19 @@ enum chan_width {
+ };
+ 
+ /* VHT/EDMG/etc. channel widths
+- * Note: The first four values are used in hostapd.conf and as such, must
++ * Note: The first five values are used in hostapd.conf and as such, must
+  * maintain their defined values. Other values are used internally. */
+ enum oper_chan_width {
+ 	CONF_OPER_CHWIDTH_USE_HT = 0,
+ 	CONF_OPER_CHWIDTH_80MHZ = 1,
+ 	CONF_OPER_CHWIDTH_160MHZ = 2,
+ 	CONF_OPER_CHWIDTH_80P80MHZ = 3,
++	CONF_OPER_CHWIDTH_320MHZ = 4,
+ 	CONF_OPER_CHWIDTH_2160MHZ,
+ 	CONF_OPER_CHWIDTH_4320MHZ,
+ 	CONF_OPER_CHWIDTH_6480MHZ,
+ 	CONF_OPER_CHWIDTH_8640MHZ,
+ 	CONF_OPER_CHWIDTH_40MHZ_6GHZ,
+-	CONF_OPER_CHWIDTH_320MHZ,
+ };
+ 
+ enum key_flag {

@@ -1,0 +1,91 @@
+
+msgid "SoC Status"
+msgstr "芯片状态"
+
+msgid "Airoha SoC Status"
+msgstr "Airoha 芯片状态"
+
+msgid "CPU Frequency"
+msgstr "CPU 频率"
+
+msgid "Current Frequency"
+msgstr "动态频率"
+
+msgid "Governor"
+msgstr "电源计划"
+
+msgid "Max Frequency"
+msgstr "最高频率"
+
+msgid "Overclock"
+msgstr "超频"
+
+msgid "Direct PLL programming. Governor locked to performance. Stock max: 1200 MHz. Tested stable up to 1500 MHz."
+msgstr "直接PLL编程。性能锁定。原厂最大频率：1200 MHz。测试稳定至 1500 MHz"
+
+msgid "CPU Cores"
+msgstr "CPU核心数量"
+
+msgid "CPU Temperature"
+msgstr "CPU温度"
+
+msgid "NPU Information"
+msgstr "NPU信息"
+
+msgid "NPU & Wireless Offload"
+msgstr "NPU与无线卸载"
+
+msgid "NPU Status"
+msgstr "NPU状态"
+
+msgid "Firmware / Clock / Cores"
+msgstr "固件版本/频率/核心数量"
+
+msgid "Token Pool"
+msgstr "Token池"
+
+msgid "PPE Flows"
+msgstr "PPE 流"
+
+msgid "Reserved Memory"
+msgstr "保留内存"
+
+msgid "Offload Statistics"
+msgstr "硬件加速统计"
+
+msgid "PPE Flow Offload Entries"
+msgstr "PPE 流加速表项"
+
+msgid "Total: "
+msgstr "总计: "
+
+msgid "Bound: "
+msgstr "已绑定: "
+
+msgid "Unbound: "
+msgstr "未绑定: "
+
+msgid "Index"
+msgstr "索引"
+
+msgid "State"
+msgstr "状态"
+
+msgid "Type"
+msgstr "类型"
+
+msgid "Original Flow"
+msgstr "原数据流"
+
+msgid "New Flow"
+msgstr "新数据流"
+
+msgid "Ethernet"
+msgstr "以太网"
+
+msgid "Packets"
+msgstr "数据包"
+
+msgid "Bytes"
+msgstr "字节"
+
