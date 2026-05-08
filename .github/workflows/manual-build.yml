@@ -67,12 +67,11 @@ jobs:
       - name: 生成配置
         run: |
           set -euxo pipefail
-          cat > .config <<EOF
-CONFIG_TARGET_airoha=y
-CONFIG_TARGET_airoha_an7581=y
-CONFIG_TARGET_airoha_an7581_DEVICE_${DEVICE}=y
-CONFIG_CCACHE=y
-EOF
+          printf '%s\n' \
+            'CONFIG_TARGET_airoha=y' \
+            'CONFIG_TARGET_airoha_an7581=y' \
+            "CONFIG_TARGET_airoha_an7581_DEVICE_${DEVICE}=y" \
+            'CONFIG_CCACHE=y' > .config
           make defconfig
           grep '^CONFIG_TARGET_airoha_an7581_DEVICE_' .config || true
 
