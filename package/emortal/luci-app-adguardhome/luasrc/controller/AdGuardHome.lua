@@ -1,126 +1,122 @@
-module("luci.controller.AdGuardHome", package.seeall)
-local fs = require "nixio.fs"
-local http = require "luci.http"
-local uci = require"luci.model.uci".cursor()
+module("luci.controller.AdGuardHome",package.seeall)
+local fs=require"nixio.fs"
+local http=require"luci.http"
+local uci=require"luci.model.uci".cursor()
 function index()
-local page = entry({"admin", "services", "AdGuardHome"},alias("admin", "services", "AdGuardHome", "base"),_("AdGuard Home"))
-page.order = 11
-page.dependent = true
-page.acl_depends = { "luci-app-adguardhome" }
-    entry({"admin", "services", "AdGuardHome", "base"}, cbi("AdGuardHome/base"),  _("Base Setting"), 1).leaf = true
-    entry({"admin", "services", "AdGuardHome", "log"}, form("AdGuardHome/log"), _("Log"), 2).leaf = true
-    entry({"admin", "services", "AdGuardHome", "manual"}, cbi("AdGuardHome/manual"), _("Manual Config"), 3).leaf = true
-    entry({"admin", "services", "AdGuardHome", "status"}, call("act_status")).leaf = true
-    entry({"admin", "services", "AdGuardHome", "check"}, call("check_update"))
-    entry({"admin", "services", "AdGuardHome", "doupdate"}, call("do_update"))
-    entry({"admin", "services", "AdGuardHome", "getlog"}, call("get_log"))
-    entry({"admin", "services", "AdGuardHome", "dodellog"}, call("do_dellog"))
-    entry({"admin", "services", "AdGuardHome", "reloadconfig"}, call("reload_config"))
-    entry({"admin", "services", "AdGuardHome", "gettemplateconfig"}, call("get_template_config"))
-end
+entry({"admin", "services", "AdGuardHome"},alias("admin", "services", "AdGuardHome", "base"),_("AdGuard Home"), 10).dependent = true
+entry({"admin","services","AdGuardHome","base"},cbi("AdGuardHome/base"),_("Plugin Settings"),1).leaf = true
+entry({"admin","services","AdGuardHome","log"},form("AdGuardHome/log"),_("Log"),2).leaf = true
+entry({"admin","services","AdGuardHome","manual"},cbi("AdGuardHome/manual"),_("Manual Config"),3).leaf = true
+entry({"admin","services","AdGuardHome","status"},call("act_status")).leaf=true
+entry({"admin", "services", "AdGuardHome", "check"}, call("check_update"))
+entry({"admin", "services", "AdGuardHome", "doupdate"}, call("do_update"))
+entry({"admin", "services", "AdGuardHome", "getlog"}, call("get_log"))
+entry({"admin", "services", "AdGuardHome", "dodellog"}, call("do_dellog"))
+entry({"admin", "services", "AdGuardHome", "reloadconfig"}, call("reload_config"))
+entry({"admin", "services", "AdGuardHome", "gettemplateconfig"}, call("get_template_config"))
+end 
 function get_template_config()
-	local b
-	local d=""
-	local file = "/tmp/resolv.conf.d/resolv.conf.auto"
-	if not fs.access(file) then
-		file = "/tmp/resolv.conf.auto"
-	end
-    for cnt in io.lines(file) do
-        b = string.match(cnt, "^[^#]*nameserver%s+([^%s]+)$")
-        if (b ~= nil) then d = d .. "  - " .. b .. "\n" end
-	end
-	local f=io.open("/usr/share/AdGuardHome/AdGuardHome_template.yaml", "r+")
-	local tbl = {}
-	local a=""
-	while (1) do
-    	a=f:read("*l")
-		if (a=="#bootstrap_dns") then
-			a=d
-		elseif (a=="#upstream_dns") then
-			a=d
-		elseif (a==nil) then
-			break
-		end
-		table.insert(tbl, a)
-	end
-	f:close()
+	local template_file = "/usr/share/AdGuardHome/AdGuardHome_template.yaml"
 	http.prepare_content("text/plain; charset=utf-8")
-	http.write(table.concat(tbl, "\n"))
+
+	if fs.access(template_file) then
+		local content = fs.readfile(template_file)
+		http.write(content or "")
+	else
+		http.write("")
+	end
 end
 function reload_config()
 	fs.remove("/tmp/AdGuardHometmpconfig.yaml")
 	http.prepare_content("application/json")
-	http.write('')
+	http.write("{}")
 end
 function act_status()
 	local e={}
 	local binpath=uci:get("AdGuardHome","AdGuardHome","binpath")
 	e.running=luci.sys.call("pgrep "..binpath.." >/dev/null")==0
-	e.redirect=(fs.readfile("/var/run/AdGredir")=="1")
+	e.redirect=(fs.readfile("/var/run/AdG_redir")=="1")
 	http.prepare_content("application/json")
 	http.write_json(e)
 end
 function do_update()
-	fs.writefile("/var/run/lucilogpos","0")
-	http.prepare_content("application/json")
-	http.write('')
 	local arg
 	if luci.http.formvalue("force") == "1" then
 		arg="force"
 	else
 		arg=""
 	end
-	if arg=="force" then
-			luci.sys.exec("kill $(pgrep /usr/share/AdGuardHome/update_core.sh) ; sh /usr/share/AdGuardHome/update_core.sh "..arg.." >/tmp/AdGuardHome_update.log 2>&1 &")
-	
-
+	if luci.sys.call("pgrep -f /usr/share/AdGuardHome/update_core.sh >/dev/null") == 0 then
+		if arg=="force" then
+			luci.sys.exec("kill $(pgrep -f /usr/share/AdGuardHome/update_core.sh) ; sh /usr/share/AdGuardHome/update_core.sh "..arg.." >/tmp/AdGuardHome_update.log 2>&1 &")
+		end
 	else
 		luci.sys.exec("sh /usr/share/AdGuardHome/update_core.sh "..arg.." >/tmp/AdGuardHome_update.log 2>&1 &")
 	end
+	http.prepare_content("application/json")
+	http.write("{}")
 end
 function get_log()
+	http.prepare_content("application/json")
 	local logfile=uci:get("AdGuardHome","AdGuardHome","logfile")
 	if (logfile==nil) then
-		http.write("no log available\n")
+		http.write_json({ pos = 0, content = "" })
 		return
 	elseif (logfile=="syslog") then
-		if not fs.access("/var/run/AdGuardHomesyslog") then
+		if not fs.access("/var/run/AdG_syslog") then
 			luci.sys.exec("(/usr/share/AdGuardHome/getsyslog.sh &); sleep 1;")
 		end
-		logfile="/tmp/AdGuardHometmp.log"
-		fs.writefile("/var/run/AdGuardHomesyslog","1")
+		logfile="/tmp/AdGuardHome.log"
+		fs.writefile("/var/run/AdG_syslog","1")
 	elseif not fs.access(logfile) then
-		http.write("")
+		http.write_json({ pos = 0, content = "" })
 		return
 	end
-	http.prepare_content("text/plain; charset=utf-8")
-    local fdp = tonumber(fs.readfile("/var/run/lucilogpos")) or 0
-	local f=io.open(logfile, "r+")
-	f:seek("set",fdp)
-	local a=f:read(2048000) or ""
-	fdp=f:seek()
-	fs.writefile("/var/run/lucilogpos",tostring(fdp))
-	f:close()
-	http.write(a)
+	-- support client-managed position via ?pos=
+	local pos = tonumber(luci.http.formvalue("pos")) or 0
+	local f = io.open(logfile, "r")
+	local content = ""
+	local newpos = pos
+	if f then
+		f:seek("set", pos)
+		content = f:read(1048576) or ""
+		newpos = f:seek()
+		f:close()
+	end
+	http.write_json({ pos = newpos, content = content })
 end
 function do_dellog()
 	local logfile=uci:get("AdGuardHome","AdGuardHome","logfile")
 	fs.writefile(logfile,"")
 	http.prepare_content("application/json")
-	http.write('')
+	http.write("{}")
 end
 function check_update()
-	http.prepare_content("text/plain; charset=utf-8")
-	local fdp=tonumber(fs.readfile("/var/run/lucilogpos")) or 0
-	local f=io.open("/tmp/AdGuardHome_update.log", "r+")
-	f:seek("set",fdp)
-	local a=f:read(2048000) or ""
-	fdp=f:seek()
-	fs.writefile("/var/run/lucilogpos",tostring(fdp))
-	f:close()
-if fs.access("/var/run/update_core") then
-	http.write(a)
-else
-	http.write(a.."\0")
-end
+	-- Now supports client-managed position: accepts `pos` param and returns JSON
+	local pos = tonumber(luci.http.formvalue("pos")) or 0
+	local fpath = "/tmp/AdGuardHome_update.log"
+	local content = ""
+	local newpos = pos
+	if fs.access(fpath) then
+		local f = io.open(fpath, "r")
+		if f then
+			f:seek("set", pos)
+			content = f:read(1048576) or ""
+			newpos = f:seek()
+			f:close()
+		end
+	end
+
+	local running = luci.sys.call("pgrep -f /usr/share/AdGuardHome/update_core.sh >/dev/null") == 0
+	local status
+	if running then
+		status = "running"
+	elseif fs.access("/var/run/AdG_update_error") then
+		status = "failed"
+	else
+		status = "succeeded"
+	end
+
+	http.prepare_content("application/json")
+	http.write_json({ pos = newpos, content = content, status = status })
 end

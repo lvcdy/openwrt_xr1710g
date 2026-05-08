@@ -1,20 +1,19 @@
 #!/bin/sh
-
 PATH="/usr/sbin:/usr/bin:/sbin:/bin"
-logread -e AdGuardHome > /tmp/AdGuardHometmp.log
-logread -e AdGuardHome -f >> /tmp/AdGuardHometmp.log &
+logread -e AdGuardHome > /tmp/AdGuardHome.log
+logread -e AdGuardHome -f >> /tmp/AdGuardHome.log &
 pid=$!
-echo "1">/var/run/AdGuardHomesyslog
+echo "1">/var/run/AdG_syslog
 while true
 do
 	sleep 12
-	watchdog=$(cat /var/run/AdGuardHomesyslog)
+	watchdog=$(cat /var/run/AdG_syslog)
 	if [ "$watchdog"x == "0"x ]; then
 		kill $pid
-		rm /tmp/AdGuardHometmp.log
-		rm /var/run/AdGuardHomesyslog
+		rm /tmp/AdGuardHome.log
+		rm /var/run/AdG_syslog
 		exit 0
 	else
-		echo "0">/var/run/AdGuardHomesyslog
+		echo "0">/var/run/AdG_syslog
 	fi
 done

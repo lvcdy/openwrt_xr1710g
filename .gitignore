@@ -1,0 +1,22 @@
+# 密钥文件 - 绝对不能提交到版本库
+*.pem
+private-key.pem
+public-key.pem
+
+# OpenWrt 构建产物
+/bin/
+/build_dir/
+/staging_dir/
+/feeds/
+/dl/
+/logs/
+/.config
+/.config.old
+/.ccache/
+/tmp/
+
+# 编辑器
+*.swp
+*.swo
+*~
+.DS_Store

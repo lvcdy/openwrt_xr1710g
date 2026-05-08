@@ -76,7 +76,8 @@ define Device/gemtek_17xx-common
 		    kmod-mt7996-firmware kmod-phy-realtek rtl8261n-firmware \
 		    wpad-basic-mbedtls kmod-tcp-bbr \
 			default-settings-chn luci-compat \
-			luci-app-airoha-npu luci-app-w1700k-fancontrol luci-app-mlo
+			luci-app-airoha-npu luci-app-w1700k-fancontrol luci-app-mlo \
+			openssh-sftp-server luci-app-openclash
   UBINIZE_OPTS := -E 5
   BLOCKSIZE := 128k
   PAGESIZE := 2048

@@ -1,0 +1,96 @@
+name: 手动构建固件
+
+on:
+  workflow_dispatch:
+    inputs:
+      device:
+        description: 选择要构建的设备
+        required: true
+        type: choice
+        default: gemtek_xr1710g_ubi
+        options:
+          - gemtek_xr1710g_ubi
+          - gemtek_w1700k_ubi
+          - gemtek_xg2010g_ubi
+          - nokia_xg_040g_md
+          - airoha_an7581_evb
+          - airoha_an7581_evb_emmc
+
+concurrency:
+  group: manual-build-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+    env:
+      DEBIAN_FRONTEND: noninteractive
+      DEVICE: ${{ inputs.device }}
+      DL_DIR: ${{ github.workspace }}/dl
+      CCACHE_DIR: ${{ github.workspace }}/.ccache
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: 安装依赖
+        run: |
+          set -euxo pipefail
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential bison ccache clang curl fastjar flex gawk gettext \
+            git gcc-multilib g++-multilib libelf-dev libncurses5-dev libssl-dev \
+            libpython3-dev patch pkg-config python3 python3-distutils python3-pip \
+            python3-setuptools qemu-utils rsync subversion swig unzip vim wget \
+            xsltproc zlib1g-dev zstd
+          python3 -m pip install --upgrade pip
+          python3 -m pip install pyelftools
+
+      - name: 缓存下载文件与 ccache
+        uses: actions/cache@v4
+        with:
+          path: |
+            dl
+            .ccache
+          key: ${{ runner.os }}-openwrt-${{ inputs.device }}-${{ hashFiles('feeds.conf.default', 'target/linux/airoha/**', 'package/emortal/**') }}
+          restore-keys: |
+            ${{ runner.os }}-openwrt-${{ inputs.device }}-
+
+      - name: 更新 feeds
+        run: |
+          set -euxo pipefail
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a
+
+      - name: 生成配置
+        run: |
+          set -euxo pipefail
+          cat > .config <<EOF
+CONFIG_TARGET_airoha=y
+CONFIG_TARGET_airoha_an7581=y
+CONFIG_TARGET_airoha_an7581_DEVICE_${DEVICE}=y
+CONFIG_CCACHE=y
+EOF
+          make defconfig
+          grep '^CONFIG_TARGET_airoha_an7581_DEVICE_' .config || true
+
+      - name: 下载源码
+        run: |
+          set -euxo pipefail
+          make download -j"$(nproc)"
+
+      - name: 编译固件
+        run: |
+          set -euxo pipefail
+          make -j"$(nproc)"
+
+      - name: 上传产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware-${{ inputs.device }}
+          path: |
+            bin/targets/airoha/an7581/**
+          if-no-files-found: error
+          retention-days: 30

@@ -1,22 +1,37 @@
 
+msgid ""
+msgstr ""
+
+msgid "<a href=\"https://github.com/stevenjoezhang/luci-app-adguardhome\" target=\"_blank\">⭐ Star on GitHub</a>"
+msgstr "<a href=\"https://github.com/stevenjoezhang/luci-app-adguardhome\" target=\"_blank\">⭐ 在 GitHub 上关注</a>"
+
+#/cgi-bin/luci/admin/services/AdGuardHome
+msgid "Plugin Settings"
+msgstr "插件设置"
+
+msgid "Basic Settings"
+msgstr "基础设置"
+
+msgid "Core Settings"
+msgstr "核心设置"
+
+msgid "Backup Settings"
+msgstr "备份设置"
+
+msgid "Crontab Settings"
+msgstr "计划任务设置"
+
+msgid "GFWList Settings"
+msgstr "GFWList 设置"
 
 msgid "Log"
 msgstr "日志"
 
-msgid "AdGuardHome's version"
-msgstr "AdGuardHome 版本"
-
-msgid "Needed to click 'save&apply' to generate the configuration file"
-msgstr "需要点击“保存并应用”才能生成配置文件"
-
-msgid "In case of the latest realease is a source code that can not download the binary file"
-msgstr "防止最新release只有源码，导致下载不成功"
-
 msgid "Manual Config"
 msgstr "手动设置"
 
-msgid "Free and open source, powerful network-wide ads & trackers blocking DNS server."
-msgstr "全网络广告和跟踪程序拦截DNS服务器，默认账号和密码均为：admin"
+msgid "A powerful LuCI interface for managing AdGuard Home - a DNS-based ad and tracker blocker that protects all devices on your network"
+msgstr "AdGuard Home 的强大 LuCI 界面 - 基于 DNS 的广告和跟踪阻止程序，保护您网络上的所有设备"
 
 msgid "RUNNING"
 msgstr "运行中"
@@ -27,11 +42,11 @@ msgstr "未运行"
 msgid "Redirected"
 msgstr "已重定向"
 
-msgid "Not redirect"
+msgid "Not redirected"
 msgstr "未重定向"
 
 msgid "Collecting data..."
-msgstr "获取数据中..."
+msgstr "获取数据中…"
 
 msgid "Enable"
 msgstr "启用"
@@ -39,113 +54,113 @@ msgstr "启用"
 msgid "Browser management port"
 msgstr "网页管理端口"
 
-msgid "Upgrade Core"
-msgstr "更新核心"
+msgid "Update"
+msgstr "更新"
 
+#button change
 msgid "Update core version"
 msgstr "更新核心版本"
 
-msgid "Check..."
-msgstr "检查中..."
+msgid "Updating..."
+msgstr "更新中…"
 
 msgid "Updated"
 msgstr "已更新"
 
+#button hide
 msgid "Force update"
-msgstr "强制更新核心"
+msgstr "强制更新"
 
 msgid "Fast config"
 msgstr "快速配置"
 
-msgid "Core Version"
-msgstr "核心版本"
+msgid "Core version:"
+msgstr "核心版本："
 
-msgid "Latest Version"
-msgstr "最新版"
-
-msgid "Beta Version"
-msgstr "测试版"
-
-msgid "Current core version:"
-msgstr "当前核心版本:"
-
-msgid "core version:"
-msgstr "核心版本:"
-
-msgid "no config"
+#description change
+msgid "No config"
 msgstr "没有配置文件"
 
-msgid "no core"
+msgid "No core"
 msgstr "没有核心"
 
-msgid "Redirect"
-msgstr "重定向"
+msgid "Core error"
+msgstr "核心错误"
 
-msgid "none"
+msgid "DNS redirect mode"
+msgstr "DNS 重定向模式"
+
+#inlist
+msgid "None"
 msgstr "无"
 
 msgid "Run as dnsmasq upstream server"
-msgstr "作为dnsmasq的上游服务器"
+msgstr "作为 dnsmasq 的上游服务器"
 
 msgid "Redirect 53 port to AdGuardHome"
-msgstr "重定向53端口到AdGuardHome"
+msgstr "重定向 53 端口到 AdGuardHome"
 
-msgid "Use port 53 replace dnsmasq"
-msgstr "使用53端口替换dnsmasq"
+msgid "Use port 53 to replace dnsmasq"
+msgstr "使用 53 端口替换 dnsmasq"
 
-msgid "AdGuardHome redirect mode"
-msgstr "AdGuardHome重定向模式"
+msgid "AdGuardHome executable file path"
+msgstr "AdGuardHome 执行文件路径"
 
-msgid "Bin Path"
-msgstr "执行文件路径"
+msgid "If the executable file does not exist, it will be downloaded automatically"
+msgstr "如果执行文件不存在将自动下载"
 
-msgid "AdGuardHome Bin path if no bin will auto download"
-msgstr "AdGuardHome 执行文件路径 如果没有执行文件将自动下载"
+msgid "Executable file architecture"
+msgstr "执行文件程序架构"
 
-msgid "use upx to compress bin after download"
-msgstr "下载后使用upx压缩执行文件"
+msgid "Auto"
+msgstr "自动"
 
-msgid "compress faster"
+msgid "If you've modified any related core settings, please save/apply the changes before clicking Update"
+msgstr "如果修改了相关核心设置，需先保存并应用后再点更新"
+
+msgid "Use upx to compress executable"
+msgstr "使用 upx 压缩执行文件"
+
+#inlist
+msgid "Compress faster"
 msgstr "快速压缩"
 
-msgid "compress better"
+msgid "Compress better"
 msgstr "更好的压缩"
 
-msgid "compress best(can be slow for big files)"
-msgstr "最好的压缩(大文件可能慢)"
+msgid "Compress best (slow)"
+msgstr "最好的压缩（慢）"
 
-msgid "try all available compression methods & filters [slow]"
-msgstr "尝试所有可能的压缩方法和过滤器[慢]"
+msgid "Try all available compression methods & filters (slower)"
+msgstr "尝试所有可能的压缩方法和过滤器（很慢）"
 
-msgid "try even more compression variants [very slow]"
-msgstr "尝试更多变体压缩手段[很慢]"
+msgid "Try even more compression variants (very slow)"
+msgstr "尝试更多不同压缩手段（非常慢）"
 
-msgid "bin use less space,but may have compatibility issues"
+msgid "Reduce executable size, but may have compatibility issues after compression"
 msgstr "减小执行文件空间占用，但是可能压缩后有兼容性问题"
 
-msgid "Config Path"
+msgid "Config path"
 msgstr "配置文件路径"
-
-msgid "AdGuardHome config path"
-msgstr "AdGuardHome 配置文件路径"
 
 msgid "Work dir"
 msgstr "工作目录"
 
-msgid "AdGuardHome work dir include rules,audit log and database"
-msgstr "AdGuardHome 工作目录包含规则，审计日志和数据库"
+msgid "AdGuardHome work dir will store query logs, database and other files"
+msgstr "AdGuardHome 工作目录下将存储审计日志和数据库等文件"
 
-msgid "Runtime log file"
+msgid "Runtime log file path"
 msgstr "运行日志路径"
 
-msgid "AdGuardHome runtime Log file if 'syslog': write to system log;if empty no log"
-msgstr "AdGuardHome 运行日志, 如果填 syslog 将写入系统日志; 如果该项为空则不记录运行日志"
+msgid "If set to syslog, logs will be written to the system log; if left empty, no logs will be recorded"
+msgstr "如果填 syslog 将写入系统日志；如果空则不记录日志"
 
 msgid "Verbose log"
-msgstr "输出详细日志"
+msgstr "详细日志"
 
+#hide div
 msgid "Add gfwlist"
-msgstr "添加 GFW 列表"
+msgstr "加入 gfw 列表"
 
 msgid "Add"
 msgstr "添加"
@@ -156,43 +171,56 @@ msgstr "已添加"
 msgid "Not added"
 msgstr "未添加"
 
+#hide div
 msgid "Del gfwlist"
-msgstr "删除gfw列表"
+msgstr "删除 gfw 列表"
 
 msgid "Del"
 msgstr "删除"
 
+msgid "will set to name gfwlist"
+msgstr "将会配置给名为 gfwlist 的 ipset 集合"
+
+msgid "(ipset only)"
+msgstr "（仅ipset）"
+
+#hide div
 msgid "Gfwlist upstream dns server"
-msgstr "gfw列表上游服务器"
+msgstr "gfw 列表上游服务器"
 
 msgid "Gfwlist domain upstream dns service"
-msgstr "gfw列表域名上游服务器"
+msgstr "gfw 列表域名上游服务器"
 
-msgid "Change management password"
-msgstr "更改登录密码"
+#hide div
+msgid "Browser management password"
+msgstr "网页登录密码"
 
-msgid "Culculate"
+msgid "Calculate"
 msgstr "计算"
 
-msgid "Load culculate model"
-msgstr "载入计算模块"
+msgid "Loading..."
+msgstr "载入中…"
 
-msgid "loading..."
-msgstr "载入中"
+msgid "The password is too long"
+msgstr "密码过长"
 
 msgid "Please save/apply"
-msgstr "请点击[保存/应用]"
+msgstr "请提交"
 
-msgid "is empty"
+msgid "Is empty"
 msgstr "为空"
 
-msgid "Press load culculate model and culculate finally save/apply"
-msgstr "先输入你想要的密码, 点击[载入计算模块], 然后点击[计算], 最后点击下方[保存&应用]"
+msgid "Press calculate and then save/apply"
+msgstr "点击计算，然后保存并应用"
+
+msgid "If no change is needed, leave it empty"
+msgstr "如果不需要修改，请保持为空"
 
 msgid "Keep files when system upgrade"
 msgstr "系统升级时保留文件"
 
-msgid "core bin"
+#checkbox
+msgid "core executable"
 msgstr "核心执行文件"
 
 msgid "config file"
@@ -201,17 +229,14 @@ msgstr "配置文件"
 msgid "log file"
 msgstr "日志文件"
 
-msgid "querylog.json"
-msgstr "审计日志.json"
-
-msgid "On boot when network ok restart"
+msgid "Restart when the network is ready after boot"
 msgstr "开机后网络准备好时重启"
 
 msgid "Backup workdir files when shutdown"
 msgstr "在关机时备份工作目录文件"
 
 msgid "Will be restore when workdir/data is empty"
-msgstr "在工作目录/data为空的时候恢复"
+msgstr "在工作目录/data 为空的时候恢复"
 
 msgid "Backup workdir path"
 msgstr "工作目录备份路径"
@@ -219,83 +244,54 @@ msgstr "工作目录备份路径"
 msgid "Crontab task"
 msgstr "计划任务"
 
-msgid "Auto update core"
-msgstr "自动升级核心"
-
-msgid "Auto tail querylog"
-msgstr "自动截短查询日志"
-
-msgid "Auto tail runtime log"
-msgstr "自动截短运行日志"
-
 msgid "Auto update ipv6 hosts and restart AdGuardHome"
-msgstr "自动更新ipv6主机并重启AdGuardHome"
+msgstr "自动更新 ipv6 主机并重启 AdGuardHome"
 
 msgid "Auto update gfwlist and restart AdGuardHome"
-msgstr "自动更新gfw列表并重启AdGuardHome"
+msgstr "自动更新 gfw 列表并重启 AdGuardHome"
 
 msgid "Auto update ipset list and restart AdGuardHome"
-msgstr "自动更新ipset列表并重启AdGuardHome"
+msgstr "自动更新 gfw ipset 列表并重启 AdGuardHome"
 
 msgid "Please change time and args in crontab"
 msgstr "请在计划任务中修改时间和参数"
 
-msgid "Core Update URL"
-msgstr "核心更新地址"
+#download option
+msgid "Download links for update"
+msgstr "升级用的下载链接"
 
-msgid "reverse"
+#/cgi-bin/luci/admin/services/AdGuardHome/log/
+msgid "Reverse"
 msgstr "逆序"
 
-msgid "localtime"
+msgid "Use localtime"
 msgstr "本地时间"
 
 msgid "Please add log path in config to enable log"
 msgstr "请在设置里填写日志路径以启用日志"
 
-msgid "dellog"
-msgstr "删除日志"
+msgid "Clear log"
+msgstr "清空日志"
 
-msgid "download log"
+msgid "Download log"
 msgstr "下载日志"
 
+#/cgi-bin/luci/admin/services/AdGuardHome/manual/
 msgid "Use template"
 msgstr "使用模板"
 
-msgid "Reload Config"
+#hide button
+msgid "Reload config"
 msgstr "重新载入配置"
 
-msgid "WARNING!!! no bin found apply config will not be test"
+msgid "WARNING!!! No executable found, config will not be tested"
 msgstr "警告！！！未找到执行文件，提交配置将不会进行校验"
 
-msgid "Change browser management username"
-msgstr "改变网页登录用户名"
+msgid "Configuration validation passed"
+msgstr "配置校验成功"
 
-msgid "Username"
-msgstr "用户名"
+msgid "Configuration validation failed"
+msgstr "配置校验失败"
 
-msgid "Check Config"
-msgstr "检查配置"
-
-msgid "unknown"
-msgstr "未知"
-
-msgid "Keep database when system upgrade"
-msgstr "系统升级时保留数据"
-
-msgid "Start up only when the network is normal"
-msgstr "开机网络正常才启动"
-
-msgid "Main Config"
-msgstr "主要设置"
-
-msgid "Other Config"
-msgstr "其它设置"
-
-msgid "Core Config"
-msgstr "内核设置"
-
-msgid "will set to name gfwlist"
-msgstr "将设置为gfwlist名称"
-
-msgid ""
-msgstr ""
+msgid "Browser management username"
+msgstr "网页登录用户名"
