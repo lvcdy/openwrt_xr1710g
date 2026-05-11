@@ -39,7 +39,7 @@ jobs:
       - name: 修复脚本权限
         run: |
           set -euxo pipefail
-          chmod +x scripts/*
+          chmod +x config/check-*.sh scripts/feeds scripts/*.sh scripts/*.pl scripts/config.guess
 
       - name: 安装依赖
         run: |
