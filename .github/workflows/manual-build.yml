@@ -7,14 +7,15 @@ on:
         description: 选择要构建的设备
         required: true
         type: choice
-        default: gemtek_xr1710g_ubi
+        default: gemtek_xr1710g-ubi
         options:
-          - gemtek_xr1710g_ubi
-          - gemtek_w1700k_ubi
-          - gemtek_xg2010g_ubi
-          - nokia_xg_040g_md
-          - airoha_an7581_evb
-          - airoha_an7581_evb_emmc
+          - gemtek_xr1710g-ubi
+          - gemtek_w1700k-ubi
+          - gemtek_xg2010g-ubi
+          - nokia_valyrian
+          - nokia_xg-040g-md
+          - airoha_an7581-evb
+          - airoha_an7581-evb-emmc
 
 concurrency:
   group: manual-build-${{ github.ref }}
@@ -67,13 +68,14 @@ jobs:
       - name: 生成配置
         run: |
           set -euxo pipefail
+          DEVICE_CONFIG=${DEVICE//-/_}
           printf '%s\n' \
             'CONFIG_TARGET_airoha=y' \
             'CONFIG_TARGET_airoha_an7581=y' \
-            "CONFIG_TARGET_airoha_an7581_DEVICE_${DEVICE}=y" \
+            "CONFIG_TARGET_airoha_an7581_DEVICE_${DEVICE_CONFIG}=y" \
             'CONFIG_CCACHE=y' > .config
           make defconfig
-          grep '^CONFIG_TARGET_airoha_an7581_DEVICE_' .config || true
+          grep "^CONFIG_TARGET_airoha_an7581_DEVICE_${DEVICE_CONFIG}=" .config || true
 
       - name: 下载源码
         run: |
