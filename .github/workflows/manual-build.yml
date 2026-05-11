@@ -62,8 +62,8 @@ jobs:
       - name: 更新 feeds
         run: |
           set -euxo pipefail
-          sh ./scripts/feeds update -a
-          sh ./scripts/feeds install -a
+          perl ./scripts/feeds update -a
+          perl ./scripts/feeds install -a
 
       - name: 生成配置
         run: |
