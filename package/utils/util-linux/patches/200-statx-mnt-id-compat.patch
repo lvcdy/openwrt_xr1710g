@@ -1,0 +1,21 @@
+diff --git a/libmount/src/utils.c b/libmount/src/utils.c
+--- a/libmount/src/utils.c
++++ b/libmount/src/utils.c
+@@ -268,2 +268,2 @@
+-#if defined(HAVE_STATX) && defined(HAVE_STRUCT_STATX) && defined(HAVE_STRUCT_STATX_STX_MNT_ID)
++#if defined(HAVE_STATX) && defined(HAVE_STRUCT_STATX) && defined(HAVE_STRUCT_STATX_STX_MNT_ID) && defined(STATX_MNT_ID)
+ static int get_mnt_id( int fd, const char *path,
+diff --git a/libmount/src/hook_mount.c b/libmount/src/hook_mount.c
+--- a/libmount/src/hook_mount.c
++++ b/libmount/src/hook_mount.c
+@@ -307,2 +307,2 @@
+-#if defined(HAVE_STATX) && defined(HAVE_STRUCT_STATX) && defined(HAVE_STRUCT_STATX_STX_MNT_ID)
++#if defined(HAVE_STATX) && defined(HAVE_STRUCT_STATX) && defined(HAVE_STRUCT_STATX_STX_MNT_ID) && defined(STATX_MNT_ID)
+ if (!rc && cxt->fs) {
+diff --git a/lsfd-cmd/lsfd.c b/lsfd-cmd/lsfd.c
+--- a/lsfd-cmd/lsfd.c
++++ b/lsfd-cmd/lsfd.c
+@@ -1057,2 +1057,2 @@
+-#if defined(HAVE_STATX) && defined(HAVE_STRUCT_STATX_STX_MNT_ID)
++#if defined(HAVE_STATX) && defined(HAVE_STRUCT_STATX_STX_MNT_ID) && defined(STATX_MNT_ID)
+ {
